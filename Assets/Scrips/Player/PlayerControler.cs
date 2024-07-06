@@ -3,8 +3,7 @@ using UnityEngine;
 public class PlayerControler : MonoBehaviour
 {
     [SerializeField] private float _moveSpeed = 5f;
-    [SerializeField] private float _jump = 4;
-
+    
     [SerializeField] private Transform groundCheck;
     [SerializeField] private LayerMask groundLayer;
     [SerializeField] private GUIControler _guiControler;
@@ -16,6 +15,7 @@ public class PlayerControler : MonoBehaviour
     private CircleCollider2D _circleCollider;
 
     public Vector2 movement;
+    public float jump;
 
     private void Start()
     {
@@ -32,7 +32,7 @@ public class PlayerControler : MonoBehaviour
 
     private void Update()
     {
-        DestroyColider();
+        DestroyCollider();
         IsGround();
     }
 
@@ -68,11 +68,11 @@ public class PlayerControler : MonoBehaviour
     {
         if (Input.GetButton(GlobalStringVars.jump) && isGrounded)
         {
-            _rigidbody2D.AddForce(Vector2.up * _jump * Time.fixedDeltaTime, ForceMode2D.Impulse);
+            _rigidbody2D.AddForce(Vector2.up * jump * Time.deltaTime, ForceMode2D.Impulse);
         }
     } 
 
-    private void DestroyColider()
+    private void DestroyCollider()
     {
         if (_hpCharacter.playerHp <= 0)
         {
